@@ -1,0 +1,11 @@
+recipe: default.v1
+language: es
+assistant_id: asistente-creditos-2024
+
+pipeline:
+  - name: CompactLLMCommandGenerator
+    llm:
+      model_group: openai_llm
+
+policies:
+  - name: rasa.core.policies.flow_policy.FlowPolicy

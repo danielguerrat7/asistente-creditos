@@ -1,0 +1,143 @@
+version: "3.1"
+
+intents: []
+
+slots:
+  credit_type:
+    type: categorical
+    values:
+      - hipotecario
+      - automotriz
+      - liquidez
+    mappings:
+      - type: from_llm
+
+  personal_info:
+    type: text
+    mappings:
+      - type: from_llm
+
+  age_verification:
+    type: float
+    mappings:
+      - type: from_llm
+
+  employment_status:
+    type: categorical
+    values:
+      - empleado
+      - independiente
+      - empresario
+    mappings:
+      - type: from_llm
+
+  income_info:
+    type: float
+    mappings:
+      - type: from_llm
+
+  credit_amount:
+    type: float
+    mappings:
+      - type: from_llm
+
+  property_value:
+    type: float
+    mappings:
+      - type: from_llm
+
+  vehicle_info:
+    type: text
+    mappings:
+      - type: from_llm
+
+  property_guarantee:
+    type: bool
+    mappings:
+      - type: from_llm
+
+  credit_type_info:
+    type: categorical
+    values:
+      - hipotecario
+      - automotriz
+      - liquidez
+    mappings:
+      - type: from_llm
+
+  document_credit_type:
+    type: categorical
+    values:
+      - hipotecario
+      - automotriz
+      - liquidez
+    mappings:
+      - type: from_llm
+
+responses:
+  utter_welcome:
+    - text: "¡Hola! Soy tu asistente para solicitudes de crédito. Puedo ayudarte con créditos hipotecarios, automotrices o de liquidez. ¿En qué tipo de crédito estás interesado?"
+
+  utter_ask_credit_type:
+    - text: "¿Qué tipo de crédito necesitas? Ofrecemos crédito hipotecario, automotriz o de liquidez."
+
+  utter_ask_personal_info:
+    - text: "Por favor, proporciona tu nombre completo y número de identificación."
+
+  utter_ask_age_verification:
+    - text: "¿Cuál es tu edad? Necesitamos verificar que cumples con los requisitos mínimos."
+
+  utter_ask_employment_status:
+    - text: "¿Cuál es tu situación laboral? ¿Eres empleado, trabajador independiente o empresario?"
+
+  utter_ask_income_info:
+    - text: "¿Cuáles son tus ingresos mensuales aproximados?"
+
+  utter_ask_credit_amount:
+    - text: "¿Qué monto de crédito necesitas?"
+
+  utter_ask_property_value:
+    - text: "Para el crédito hipotecario, ¿cuál es el valor de la propiedad que deseas adquirir?"
+
+  utter_ask_vehicle_info:
+    - text: "Para el crédito automotriz, por favor describe el vehículo (marca, modelo, año, valor aproximado)."
+
+  utter_ask_property_guarantee:
+    - text: "Para el crédito de liquidez, ¿cuentas con un inmueble propio que puedas usar como garantía hipotecaria?"
+
+  utter_ask_credit_type_info:
+    - text: "¿Sobre qué tipo de crédito te gustaría conocer los requisitos? Hipotecario, automotriz o de liquidez."
+
+  utter_ask_document_credit_type:
+    - text: "¿Para qué tipo de crédito necesitas la lista de documentos? Hipotecario, automotriz o de liquidez."
+
+  utter_general_documents:
+    - text: "📋 **Documentos generales requeridos:**\n\n• Identificación oficial vigente (INE, pasaporte o cédula profesional)\n• Comprobante de domicilio no mayor a 3 meses\n• CURP\n• Solicitud de crédito firmada\n• Autorización para consulta en Buró de Crédito"
+
+  utter_mortgage_documents:
+    - text: "📋 **Documentos específicos para crédito hipotecario:**\n\n• Escrituras de la propiedad a adquirir\n• Avalúo del inmueble\n• Contrato de compraventa\n• Constancia de no adeudos del inmueble"
+
+  utter_auto_documents:
+    - text: "📋 **Documentos específicos para crédito automotriz:**\n\n• Cotización o factura del vehículo\n• Póliza de seguro del automóvil\n• Licencia de conducir vigente\n• Comprobante del enganche (si aplica)"
+
+  utter_liquidity_documents:
+    - text: "📋 **Documentos específicos para crédito de liquidez:**\n\n• Escrituras del inmueble en garantía debidamente inscritas en el Registro Público\n• Avalúo reciente del inmueble (realizado por perito autorizado)\n• Certificado de libertad de gravamen\n• Comprobante de pago de predial al corriente\n• Póliza de seguro de daños del inmueble\n• Acta de matrimonio (si se consolidan ingresos con el cónyuge)"
+
+  utter_employment_documents:
+    - text: "📋 **Documentos laborales según tu situación:**\n\n**Si eres empleado:**\n• Recibos de nómina de los últimos 3-6 meses\n• Constancia laboral con puesto, antigüedad e ingresos\n• Estados de cuenta bancarios\n\n**Si eres independiente/empresario:**\n• Declaraciones anuales y parciales de impuestos\n• Estados de cuenta bancarios de los últimos 6 meses\n• Alta en Hacienda (RFC)\n• Acta constitutiva de la empresa (si aplica)"
+
+  utter_credit_requirements:
+    - text: "Te proporciono los requisitos según el tipo de crédito. También puedes preguntarme específicamente por la lista de documentos."
+
+  utter_document_checklist:
+    - text: "Te envío la lista completa de documentos requeridos para tu tipo de crédito específico."
+
+  utter_application_submitted:
+    - text: "✅ Tu solicitud de crédito ha sido recibida junto con la lista de documentos requeridos. Nuestro equipo la revisará y te contactaremos en las próximas 24-48 horas. Por favor, ten listos todos los documentos mencionados para agilizar el proceso."
+
+actions:
+  - action_validate_credit_application
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

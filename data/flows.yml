@@ -1,0 +1,54 @@
+flows:
+  welcome:
+    description: "Saluda al usuario y presenta los tipos de crédito disponibles"
+    steps:
+      - action: utter_welcome
+      
+  credit_application:
+    description: "Maneja solicitudes de crédito hipotecario, automotriz o de liquidez, recopilando información y documentación necesaria"
+    steps:
+      - collect: credit_type
+        description: "Pregunta qué tipo de crédito necesita el usuario"
+      - collect: personal_info
+        description: "Recopila información personal básica del solicitante"
+      - collect: age_verification
+        description: "Verifica que el solicitante cumple con los requisitos de edad"
+      - collect: employment_status
+        description: "Determina si es empleado o trabajador independiente"
+      - collect: income_info
+        description: "Obtiene información sobre ingresos mensuales"
+      - collect: credit_amount
+        description: "Pregunta el monto del crédito solicitado"
+      - if: slots.credit_type == "hipotecario"
+        then:
+          - collect: property_value
+            description: "Para crédito hipotecario, obtiene el valor de la propiedad"
+          - action: utter_mortgage_documents
+      - if: slots.credit_type == "automotriz"
+        then:
+          - collect: vehicle_info
+            description: "Para crédito automotriz, obtiene información del vehículo"
+          - action: utter_auto_documents
+      - if: slots.credit_type == "liquidez"
+        then:
+          - collect: property_guarantee
+            description: "Para crédito de liquidez, confirma si tiene inmueble en garantía"
+          - action: utter_liquidity_documents
+      - action: utter_general_documents
+      - action: utter_employment_documents
+      - action: action_validate_credit_application
+      - action: utter_application_submitted
+
+  check_requirements:
+    description: "Proporciona información sobre los requisitos para cada tipo de crédito"
+    steps:
+      - collect: credit_type_info
+        description: "Pregunta sobre qué tipo de crédito quiere conocer los requisitos"
+      - action: utter_credit_requirements
+
+  document_checklist:
+    description: "Proporciona lista detallada de documentos requeridos según el tipo de crédito"
+    steps:
+      - collect: document_credit_type
+        description: "Pregunta para qué tipo de crédito necesita la lista de documentos"
+      - action: utter_document_checklist
